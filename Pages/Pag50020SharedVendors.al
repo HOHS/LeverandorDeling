@@ -1,4 +1,4 @@
-//DONE - mangler noget med grouptype Repeater
+//DONE
 page 50020 "Shared Vendors"
 {
     PageType = List;

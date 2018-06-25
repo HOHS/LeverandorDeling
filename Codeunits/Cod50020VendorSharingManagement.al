@@ -3,7 +3,7 @@ codeunit 50020 "Vendor Sharing Management"
 {
     trigger OnRun()
     begin
-        
+
     end;
 
     //<functions>
@@ -23,19 +23,19 @@ codeunit 50020 "Vendor Sharing Management"
         SharedVendor: Record "Shared Vendor";
         SharedVendorSubscriberTemp: Record "Shared Vendor Subscriber" temporary;
     begin
-        If SharedVendor.Get(FromCompany,vendor."No.") then
+        If SharedVendor.Get(FromCompany, vendor."No.") then
             SharedVendor.Delete(false)
         else
             exit;
 
         If VendorIsShared(Vendor."No.") then begin
-            GetSharedVendorList(SharedVendorSubscriberTemp,Vendor."No.",FromCompany,'');
+            GetSharedVendorList(SharedVendorSubscriberTemp, Vendor."No.", FromCompany, '');
             if SharedVendorSubscriberTemp.FindSet() then repeat
-                BlockVendor(SharedVendorSubscriberTemp."Shared from Company Name",Vendor."No.");
-                RemoveVendorSubscribtion(FromCompany,SharedVendorSubscriberTemp."Shared to Company Name",SharedVendorSubscriberTemp."Vendor No.");
+                BlockVendor(SharedVendorSubscriberTemp."Shared from Company Name", Vendor."No.");
+                RemoveVendorSubscribtion(FromCompany, SharedVendorSubscriberTemp."Shared to Company Name", SharedVendorSubscriberTemp."Vendor No.");
             until SharedVendorSubscriberTemp.Next() = 0;
         end;
-        
+
     end;
 
     procedure SubscibeToVendor()
@@ -43,22 +43,22 @@ codeunit 50020 "Vendor Sharing Management"
     var
         SharedVendor: Record "Shared Vendor";
     begin
-        If page.RunModal(0,SharedVendor) = Action::LookupOK then begin
-            AddVendorSubscribtion(SharedVendor,CompanyName());
-            CopySharedVendor(SharedVendor,CompanyName());
-            CopyVendorBankInformation(SharedVendor,CompanyName());
+        If page.RunModal(0, SharedVendor) = Action::LookupOK then begin
+            AddVendorSubscribtion(SharedVendor, CompanyName());
+            CopySharedVendor(SharedVendor, CompanyName());
+            CopyVendorBankInformation(SharedVendor, CompanyName());
         end;
     end;
 
-    procedure UnsibscribeToVendor(Vendor: Record Vendor)
+    procedure UnsubscribeToVendor(Vendor: Record Vendor)
     //This needs to be called from the company that wants to unsubscribe to a vendor
     var
         SharedVendorSubscriber: Record "Shared Vendor Subscriber";
     begin
-        SharedVendorSubscriber.SetRange("Shared to Company Name",CompanyName());
-        SharedVendorSubscriber.SetRange("Vendor No.",Vendor."No.");
+        SharedVendorSubscriber.SetRange("Shared to Company Name", CompanyName());
+        SharedVendorSubscriber.SetRange("Vendor No.", Vendor."No.");
         if SharedVendorSubscriber.FindFirst() then begin
-            RemoveVendorSubscribtion(SharedVendorSubscriber."Shared from Company Name",SharedVendorSubscriber."Shared to Company Name",Vendor."No.");
+            RemoveVendorSubscribtion(SharedVendorSubscriber."Shared from Company Name", SharedVendorSubscriber."Shared to Company Name", Vendor."No.");
             Vendor.Blocked := Vendor.Blocked::All;
             Vendor.Modify(false);
         end;
@@ -67,20 +67,20 @@ codeunit 50020 "Vendor Sharing Management"
     procedure PublishAllVendors()
     var
         Vendor: Record Vendor;
-        begin
-            if Vendor.FindSet() then repeat
-                SetVendorAsShared(Vendor,CompanyName());
-            until vendor.Next() = 0;
-        end;
+    begin
+        if Vendor.FindSet() then repeat
+            SetVendorAsShared(Vendor, CompanyName());
+        until vendor.Next() = 0;
+    end;
 
     procedure UnPublishAllVendors()
     var
         Vendor: Record Vendor;
-        begin
-            if Vendor.FindSet() then repeat
-                RemoveVendorAsShared(Vendor,CompanyName());
-            until vendor.next = 0;
-        end;
+    begin
+        if Vendor.FindSet() then repeat
+            RemoveVendorAsShared(Vendor, CompanyName());
+        until vendor.next = 0;
+    end;
 
     local procedure AddVendorSubscribtion(SharedVendor: Record "Shared Vendor"; ShareWithCompanyName: text[35])
     var
@@ -90,7 +90,7 @@ codeunit 50020 "Vendor Sharing Management"
         SharedVendorSubscriber."Shared to Company Name" := ShareWithCompanyName;
         SharedVendorSubscriber."Vendor No." := SharedVendor."Vendor No.";
         SharedVendorSubscriber."Vendor Name" := SharedVendor."Vendor Name";
-        if not SharedVendorSubscriber.Insert(false) then 
+        if not SharedVendorSubscriber.Insert(false) then
             SharedVendorSubscriber.Modify(false);
     end;
 
@@ -98,7 +98,7 @@ codeunit 50020 "Vendor Sharing Management"
     var
         SharedVendorSubscriber: Record "Shared Vendor Subscriber";
     begin
-        if SharedVendorSubscriber.Get(FromCompany,ToCompany,VendorNo) then
+        if SharedVendorSubscriber.Get(FromCompany, ToCompany, VendorNo) then
             SharedVendorSubscriber.Delete(false);
     end;
 
@@ -112,20 +112,25 @@ codeunit 50020 "Vendor Sharing Management"
         IF VendorToBeShared.get(SharedVendor."Vendor No.") then begin
             if not NewVendor.get(SharedVendor."Vendor No.") then begin
                 NewVendor.Init();
-                NewVendor.TransferFields(VendorToBeShared,true);
+                NewVendor.TransferFields(VendorToBeShared, true);
                 NewVendor.insert(false);
             end else begin
-                NewVendor.TransferFields(VendorToBeShared,false);
+                NewVendor.TransferFields(VendorToBeShared, false);
                 newvendor.Modify(false);
             end;
         end;
     end;
 
     local procedure CopyVendorBankInformation(SharedVendor: Record "Shared Vendor"; ShareWithCompanyName: Text[35])
+    var
+        PaymentManagementSetup: Record "Payment Setup";
     begin
-        CopyVendorBankAccount(SharedVendor,ShareWithCompanyName);
-        CopyVendorPaymentMethod(SharedVendor,ShareWithCompanyName);
-        CopyVendorPaymentInformation(SharedVendor,ShareWithCompanyName);
+        CopyVendorBankAccount(SharedVendor, ShareWithCompanyName);
+        PaymentManagementSetup.ChangeCompany(ShareWithCompanyName);
+        if PaymentManagementSetup.Get() then begin
+            CopyVendorPaymentMethod(SharedVendor, ShareWithCompanyName);
+            CopyVendorPaymentInformation(SharedVendor, ShareWithCompanyName);
+        end;
     end;
 
     local procedure CopyVendorBankAccount(SharedVendor: Record "Shared Vendor"; ShareWithCompanyName: text[35])
@@ -134,15 +139,15 @@ codeunit 50020 "Vendor Sharing Management"
         NewVendorBankAccount: Record "Vendor Bank Account";
     begin
         VendorBankAccount.ChangeCompany(SharedVendor."Shared from Company Name");
-        VendorBankAccount.setrange("Vendor No.",SharedVendor."Vendor No.");
+        VendorBankAccount.setrange("Vendor No.", SharedVendor."Vendor No.");
         NewVendorBankAccount.ChangeCompany(ShareWithCompanyName);
         if VendorBankAccount.findset then repeat
-            if not NewVendorBankAccount.get(VendorBankAccount."Vendor No.",VendorBankAccount.Code) then begin
+            if not NewVendorBankAccount.get(VendorBankAccount."Vendor No.", VendorBankAccount.Code) then begin
                 NewVendorBankAccount.Init();
-                NewVendorBankAccount.TransferFields(VendorBankAccount,true);
+                NewVendorBankAccount.TransferFields(VendorBankAccount, true);
                 NewVendorBankAccount.Insert(false);
             end else begin
-                NewVendorBankAccount.TransferFields(VendorBankAccount,false);
+                NewVendorBankAccount.TransferFields(VendorBankAccount, false);
                 NewVendorBankAccount.Modify(false);
             end;
         until VendorBankAccount.Next() = 0;
@@ -154,15 +159,15 @@ codeunit 50020 "Vendor Sharing Management"
         NewVendorPaymentMethod: Record "Vendor/Payment Method";
     begin
         VendorPaymentMethod.ChangeCompany(SharedVendor."Shared from Company Name");
-        VendorPaymentMethod.setrange("Vendor No.",SharedVendor."Vendor No.");
+        VendorPaymentMethod.setrange("Vendor No.", SharedVendor."Vendor No.");
         NewVendorPaymentMethod.ChangeCompany(ShareWithCompanyName);
         if VendorPaymentMethod.FindSet() then repeat
-            if not NewVendorPaymentMethod.Get(VendorPaymentMethod."Vendor No.",VendorPaymentMethod."Payment Method") then begin
+            if not NewVendorPaymentMethod.Get(VendorPaymentMethod."Vendor No.", VendorPaymentMethod."Payment Method") then begin
                 NewVendorPaymentMethod.init();
-                NewVendorPaymentMethod.TransferFields(VendorPaymentMethod,true);
+                NewVendorPaymentMethod.TransferFields(VendorPaymentMethod, true);
                 NewVendorPaymentMethod.Insert(false);
             end else begin
-                NewVendorPaymentMethod.TransferFields(VendorPaymentMethod,false);
+                NewVendorPaymentMethod.TransferFields(VendorPaymentMethod, false);
                 NewVendorPaymentMethod.Modify(false);
             end;
         until VendorPaymentMethod.Next() = 0;
@@ -178,10 +183,10 @@ codeunit 50020 "Vendor Sharing Management"
         if VendorPaymentInformation.Get(SharedVendor."Vendor No.") then begin
             if not NewVendorPaymentInformation.get(SharedVendor."Vendor No.") then begin
                 NewVendorPaymentInformation.Init();
-                NewVendorPaymentInformation.TransferFields(VendorPaymentInformation,true);
+                NewVendorPaymentInformation.TransferFields(VendorPaymentInformation, true);
                 NewVendorPaymentInformation.Insert(false);
             end else begin
-                NewVendorPaymentInformation.TransferFields(VendorPaymentInformation,false);
+                NewVendorPaymentInformation.TransferFields(VendorPaymentInformation, false);
                 NewVendorPaymentInformation.Modify(false);
             end;
         end;
@@ -192,10 +197,10 @@ codeunit 50020 "Vendor Sharing Management"
         SharedVendor: Record "Shared Vendor";
         SharedVendorSubscriberTemp: Record "Shared Vendor Subscriber" temporary;
     begin
-        GetSharedVendorList(SharedVendorSubscriberTemp,Vendor."No.",FromCompany,'');
+        GetSharedVendorList(SharedVendorSubscriberTemp, Vendor."No.", FromCompany, '');
         if SharedVendorSubscriberTemp.FindSet() then repeat
-            SharedVendor.Get(SharedVendorSubscriberTemp."Shared from Company Name",SharedVendorSubscriberTemp."Vendor No.");
-            CopySharedVendor(SharedVendor,SharedVendorSubscriberTemp."Shared to Company Name");
+            SharedVendor.Get(SharedVendorSubscriberTemp."Shared from Company Name", SharedVendorSubscriberTemp."Vendor No.");
+            CopySharedVendor(SharedVendor, SharedVendorSubscriberTemp."Shared to Company Name");
         until SharedVendorSubscriberTemp.Next() = 0;
 
     end;
@@ -206,10 +211,10 @@ codeunit 50020 "Vendor Sharing Management"
         SharedVendor: Record "Shared Vendor";
         SharedVendorSubscriberTemp: Record "Shared Vendor Subscriber" temporary;
     begin
-        GetSharedVendorList(SharedVendorSubscriberTemp,Vendor."No.",FromCompany,'');
+        GetSharedVendorList(SharedVendorSubscriberTemp, Vendor."No.", FromCompany, '');
         if SharedVendorSubscriberTemp.FindSet() then repeat
-            SharedVendor.get(SharedVendorSubscriberTemp."Shared from Company Name",SharedVendorSubscriberTemp."Vendor No.");
-            CopyVendorBankAccount(SharedVendor,SharedVendorSubscriberTemp."Shared to Company Name");
+            SharedVendor.get(SharedVendorSubscriberTemp."Shared from Company Name", SharedVendorSubscriberTemp."Vendor No.");
+            CopyVendorBankAccount(SharedVendor, SharedVendorSubscriberTemp."Shared to Company Name");
         until SharedVendorSubscriberTemp.Next() = 0;
     end;
 
@@ -218,10 +223,10 @@ codeunit 50020 "Vendor Sharing Management"
         SharedVendor: Record "Shared Vendor";
         SharedVendorSubscriberTemp: Record "Shared Vendor Subscriber" temporary;
     begin
-        GetSharedVendorList(SharedVendorSubscriberTemp,vendor."No.",FromCompany,'');
+        GetSharedVendorList(SharedVendorSubscriberTemp, vendor."No.", FromCompany, '');
         if SharedVendorSubscriberTemp.FindSet() then repeat
-            SharedVendor.get(SharedVendorSubscriberTemp."Shared from Company Name",SharedVendorSubscriberTemp."Vendor No.");
-            CopyVendorPaymentMethod(SharedVendor,SharedVendorSubscriberTemp."Shared to Company Name");
+            SharedVendor.get(SharedVendorSubscriberTemp."Shared from Company Name", SharedVendorSubscriberTemp."Vendor No.");
+            CopyVendorPaymentMethod(SharedVendor, SharedVendorSubscriberTemp."Shared to Company Name");
         until SharedVendorSubscriberTemp.Next() = 0
     end;
 
@@ -230,14 +235,14 @@ codeunit 50020 "Vendor Sharing Management"
         SharedVendor: Record "Shared Vendor";
         SharedVendorSubscriberTemp: Record "Shared Vendor Subscriber" temporary;
     begin
-        GetSharedVendorList(SharedVendorSubscriberTemp,Vendor."No.",FromCompany,'');
+        GetSharedVendorList(SharedVendorSubscriberTemp, Vendor."No.", FromCompany, '');
         if SharedVendorSubscriberTemp.FindSet() then repeat
-            SharedVendor.get(SharedVendorSubscriberTemp."Shared from Company Name",SharedVendorSubscriberTemp."Vendor No.");
-            CopyVendorPaymentInformation(SharedVendor,SharedVendorSubscriberTemp."Shared to Company Name");
+            SharedVendor.get(SharedVendorSubscriberTemp."Shared from Company Name", SharedVendorSubscriberTemp."Vendor No.");
+            CopyVendorPaymentInformation(SharedVendor, SharedVendorSubscriberTemp."Shared to Company Name");
         until SharedVendorSubscriberTemp.Next() = 0;
     end;
 
-    local procedure BlockVendor(InCompany: text[35];VendorNo: Code[20])
+    local procedure BlockVendor(InCompany: text[35]; VendorNo: Code[20])
     var
         Vendor: Record Vendor;
     begin
@@ -248,31 +253,31 @@ codeunit 50020 "Vendor Sharing Management"
         end;
     end;
 
-    local procedure VendorIsShared(VendorNo: Code[20] ):Boolean
+    local procedure VendorIsShared(VendorNo: Code[20]): Boolean
     var
         SharedVendorSubscriber: Record "Shared Vendor Subscriber";
     begin
-        SharedVendorSubscriber.SetRange("Vendor No.",VendorNo);
+        SharedVendorSubscriber.SetRange("Vendor No.", VendorNo);
         exit(SharedVendorSubscriber.Count() <> 0);
     end;
 
-    local procedure GetSharedVendorList(SharedVendorSubscriberTemp: Record "Shared Vendor Subscriber";VendorNoFilter: Text[1024];FromCompanyNameFilter: Text[1024];ToCompanyNameFilter: Text[1024])
+    local procedure GetSharedVendorList(SharedVendorSubscriberTemp: Record "Shared Vendor Subscriber"; VendorNoFilter: Text[1024]; FromCompanyNameFilter: Text[1024]; ToCompanyNameFilter: Text[1024])
     var
         SharedVendorSubscriber: Record "Shared Vendor Subscriber";
     begin
         if VendorNoFilter <> '' then
-            SharedVendorSubscriber.SetFilter("Vendor No.",VendorNoFilter);
+            SharedVendorSubscriber.SetFilter("Vendor No.", VendorNoFilter);
         if FromCompanyNameFilter <> '' then
-            SharedVendorSubscriber.SetFilter("Shared from Company Name",FromCompanyNameFilter);
+            SharedVendorSubscriber.SetFilter("Shared from Company Name", FromCompanyNameFilter);
         if ToCompanyNameFilter <> '' then
-            SharedVendorSubscriber.SetFilter("Shared to Company Name",ToCompanyNameFilter);
+            SharedVendorSubscriber.SetFilter("Shared to Company Name", ToCompanyNameFilter);
         if SharedVendorSubscriber.FindSet() then repeat
             SharedVendorSubscriberTemp := SharedVendorSubscriber;
             if not SharedVendorSubscriberTemp.Insert() then;
         until SharedVendorSubscriber.Next() = 0;
     end;
 
-    local procedure ThisCompanySharesItsVendors():Boolean
+    local procedure ThisCompanySharesItsVendors(): Boolean
     var
         PurchasesPayablesSetup: Record "Purchases & Payables Setup";
     begin
@@ -287,22 +292,22 @@ codeunit 50020 "Vendor Sharing Management"
 
     //<events>
     [EventSubscriber(ObjectType::Table, Database::Vendor, 'OnAfterInsertEvent', '', true, true)]
-    local procedure SetVendorAsSharedOnAfterInsert(var Rec: Record Vendor;RunTrigger: Boolean)
+    local procedure SetVendorAsSharedOnAfterInsert(var Rec: Record Vendor; RunTrigger: Boolean)
     var
         ErrorMsg: TextConst ENU = 'You cannot insert Vendors in this company. Subscribe to the vendors that you want to use.',
                             DAN = 'Du kan ikke indsætte leverandører i det her regnskab. Abonner på de leverandører, som du vil bruge.';
     begin
         If not RunTrigger then
             exit;
-        
+
         if ThisCompanySharesItsVendors() then
-            SetVendorAsShared(Rec,CompanyName())
+            SetVendorAsShared(Rec, CompanyName())
         else
             Error(ErrorMsg);
     end;
 
     [EventSubscriber(ObjectType::Table, Database::Vendor, 'OnAfterModifyEvent', '', true, true)]
-    local procedure ModifySharedVendorOnAfterModify(var Rec: Record Vendor; var xRec: Record Vendor;RunTrigger: Boolean)
+    local procedure ModifySharedVendorOnAfterModify(var Rec: Record Vendor; var xRec: Record Vendor; RunTrigger: Boolean)
     var
         ErrorMsg: TextConst ENU = 'You cannot modify Vedors in this company. Modify the vendor in the company it is created in.',
                             DAN = 'Du kan ikke rette i leverandøren i det her regnskab. Ret leverandøren i det selskab den er oprettet i.';
@@ -310,13 +315,13 @@ codeunit 50020 "Vendor Sharing Management"
         if not RunTrigger then
             exit;
         if ThisCompanySharesItsVendors() then
-            SetVendorAsShared(Rec,CompanyName())
+            SetVendorAsShared(Rec, CompanyName())
         else
             Error(ErrorMsg);
     end;
 
     [EventSubscriber(ObjectType::Table, Database::Vendor, 'OnAfterDeleteEvent', '', true, true)]
-    local procedure DeleteSharedVendorOnAfterDelete(var Rec: Record Vendor;Runtrigger: Boolean)
+    local procedure DeleteSharedVendorOnAfterDelete(var Rec: Record Vendor; Runtrigger: Boolean)
     var
         ErrorMsg: TextConst ENU = 'You cannot delete Vendors.',
                             DAN = 'Du kan ikke slette leverandører.';
@@ -327,53 +332,53 @@ codeunit 50020 "Vendor Sharing Management"
     end;
 
     [EventSubscriber(ObjectType::Table, Database::Vendor, 'OnAfterRenameEvent', '', true, true)]
-    local procedure RenameSharedVendorOnAfterRename(var Rec: Record Vendor;var xRec: Record Vendor;RunTrigger: Boolean)
+    local procedure RenameSharedVendorOnAfterRename(var Rec: Record Vendor; var xRec: Record Vendor; RunTrigger: Boolean)
     var
         ErrorMsg: TextConst ENU = 'You cannot rename Vendors.',
                             DAN = 'Du kan ikke omdøbe leverandører.';
     begin
         if not Runtrigger then
             exit;
-        Error(ErrorMsg); 
+        Error(ErrorMsg);
     end;
 
     [EventSubscriber(ObjectType::Table, Database::"Vendor Bank Account", 'OnAfterInsertEvent', '', true, true)]
     local procedure InsertSharedVendorBankAccountOnAfterInsert(var Rec: Record "Vendor Bank Account"; RunTrigger: Boolean)
-    var 
+    var
         ErrorMsg: TextConst ENU = 'You cannot insert Vendor Bank Accounts in this company. Subscribe to the vendors that you want to use.',
                             DAN = 'Du kan ikke indsætte leverandørbankkonti i det her regnskab. Abonner på de leverandører, som du vil  bruge.';
         Vendor: Record Vendor;
     begin
         if not RunTrigger then
             exit;
-        
+
         if ThisCompanySharesItsVendors() then begin
             Vendor.Get(Rec."Vendor No.");
-            UpdateVendorBankAccount(Vendor,CompanyName())
+            UpdateVendorBankAccount(Vendor, CompanyName())
         end else
             Error(ErrorMsg);
     end;
 
     [EventSubscriber(ObjectType::Table, Database::"Vendor Bank Account", 'OnAfterModifyEvent', '', true, true)]
     local procedure ModifySharedVendorBankAccountOnAfterModify(var Rec: Record "Vendor Bank Account"; var xRec: Record "Vendor Bank Account"; RunTrigger: Boolean)
-    var 
+    var
         ErrorMsg: TextConst ENU = 'You cannot modify Vendor Bank Accounts in this company. Subscribe to the vendors that you want to use.',
                             DAN = 'Du kan ikke ændre leverandørbankkonti i det her regnskab. Abonner på de leverandører, som du vil bruge.';
         Vendor: Record Vendor;
     begin
         if not RunTrigger then
             exit;
-        
+
         if ThisCompanySharesItsVendors() then begin
             Vendor.Get(Rec."Vendor No.");
-            UpdateVendorBankAccount(Vendor,CompanyName());
+            UpdateVendorBankAccount(Vendor, CompanyName());
         end else
             Error(ErrorMsg);
     end;
 
     [EventSubscriber(ObjectType::Table, Database::"Vendor Bank Account", 'OnAfterDeleteEvent', '', true, true)]
     local procedure DeleteSharedVendorBankAccountOnAfterDelete(var Rec: Record "Vendor Bank Account"; RunTrigger: Boolean)
-    var 
+    var
         ErrorMsg: TextConst ENU = 'You cannot delete Vendor Bank Accounts.',
                             DAN = 'Du kan ikke slette leverandøres bankkonti.';
     begin
@@ -384,7 +389,7 @@ codeunit 50020 "Vendor Sharing Management"
 
     [EventSubscriber(ObjectType::Table, Database::"Vendor Bank Account", 'OnAfterRenameEvent', '', true, true)]
     local procedure RenameSharedVendorBankAccountOnAfterRename(var Rec: Record "Vendor Bank Account"; var xRec: Record "Vendor Bank Account"; RunTrigger: Boolean)
-    var 
+    var
         ErrorMsg: TextConst ENU = 'You cannot rename Vendor Bank Accounts.',
                             DAN = 'Du kan ikke omdøbe leverandøres bankkonti.';
     begin
@@ -402,10 +407,10 @@ codeunit 50020 "Vendor Sharing Management"
     begin
         if not RunTrigger then
             exit;
-        
+
         if ThisCompanySharesItsVendors() then begin
             Vendor.Get(Rec."Vendor No.");
-            UpdateVendorPaymentMethod(Vendor,CompanyName());
+            UpdateVendorPaymentMethod(Vendor, CompanyName());
         end else
             Error(ErrorMsg);
     end;
@@ -419,11 +424,11 @@ codeunit 50020 "Vendor Sharing Management"
     begin
         if not RunTrigger then
             exit;
-        
+
         if ThisCompanySharesItsVendors() then begin
             Vendor.Get(Rec."Vendor No.");
-            UpdateVendorPaymentMethod(Vendor,CompanyName());
-        end else 
+            UpdateVendorPaymentMethod(Vendor, CompanyName());
+        end else
             Error(ErrorMsg);
     end;
 
@@ -458,12 +463,13 @@ codeunit 50020 "Vendor Sharing Management"
     begin
         if not RunTrigger then
             exit;
-        
+
         if ThisCompanySharesItsVendors() then begin
             Vendor.Get(Rec."Vendor No.");
-            UpdateVendorPaymentInformation(Vendor,CompanyName());
+            UpdateVendorPaymentInformation(Vendor, CompanyName());
         end else
-            Error(ErrorMsg);;
+            Error(ErrorMsg);
+        ;
     end;
 
     [EventSubscriber(ObjectType::Table, Database::"Vendor/Payment Information", 'OnAfterModifyEvent', '', true, true)]
@@ -475,10 +481,10 @@ codeunit 50020 "Vendor Sharing Management"
     begin
         if not RunTrigger then
             exit;
-        
+
         if ThisCompanySharesItsVendors() then begin
             Vendor.Get(Rec."Vendor No.");
-            UpdateVendorPaymentInformation(Vendor,CompanyName());
+            UpdateVendorPaymentInformation(Vendor, CompanyName());
         end;
     end;
 
@@ -490,7 +496,7 @@ codeunit 50020 "Vendor Sharing Management"
     begin
         if not RunTrigger then
             exit;
-        Error(ErrorMsg);    
+        Error(ErrorMsg);
     end;
 
     [EventSubscriber(ObjectType::Table, Database::"Vendor/Payment Information", 'OnAfterRenameEvent', '', true, true)]
