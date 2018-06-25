@@ -7,7 +7,7 @@ pageextension 50020 AddActionsToVendorCard extends "Vendor Card"
             action(SharedWithCompanies)
             {
                 Visible = ShowSharedVendorList;
-                Caption = 'Delt i regnskaber';
+                Caption = 'Shared in Companies';
                 Image = ShowSelected;
                 
 
@@ -23,7 +23,7 @@ pageextension 50020 AddActionsToVendorCard extends "Vendor Card"
             action(SharedFromCompany)
             {
                 Visible = ShowVendorUnsubscribe;
-                Caption = 'Delt fra regnskab';
+                Caption = 'Shared from Company';
                 Image = ShowSelected;
                 
 
@@ -42,7 +42,7 @@ pageextension 50020 AddActionsToVendorCard extends "Vendor Card"
             action("Unsubscribe to Vendor")
             {
                 Visible = ShowVendorUnsubscribe;
-                Caption = 'Stop med at abbonnere på leverandør';
+                Caption = 'Unsubscribe to Vendor';
                 Image = UnApply;
                 trigger OnAction()
                 var 

@@ -1,7 +1,7 @@
 table 50020 "Shared Vendor"
 {
     DataClassification = CustomerContent;
-    Caption = 'Delt leverandør';
+    Caption = 'Shared Vendor';
     DataPerCompany = false;
     LookupPageId = "Shared Vendors";
     DrillDownPageId = "Shared Vendors";
@@ -9,20 +9,20 @@ table 50020 "Shared Vendor"
     {
         field(1;"Shared from Company Name"; text[30])
         {
-            Caption = 'Delt fra virksomhedsnavn';
+            Caption = 'Shared from Company Name';
             TableRelation = Company.Name;
             DataClassification = CustomerContent;
         }
 
         field(2;"Vendor No."; code[20])
         {
-            caption = 'Leverandørnr.';
+            caption = 'Vendor No.';
             DataClassification = CustomerContent;
         }
 
         field(3;"Vendor Name"; text[50])
         {
-            caption = 'Leverandørnavn';
+            caption = 'Vendor Name';
             DataClassification = CustomerContent;
         }
     }

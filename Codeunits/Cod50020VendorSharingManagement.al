@@ -281,7 +281,7 @@ codeunit 50020 "Vendor Sharing Management"
         PurchasesPayablesSetup: Record "Purchases & Payables Setup";
     begin
         PurchasesPayablesSetup.Get();
-        exit(PurchasesPayablesSetup."Share Vendors"); //share vendor kan de ikke finde da det er en table extension.
+        exit(PurchasesPayablesSetup."Share Vendors"); 
     end;
     //</functions>
 
@@ -293,8 +293,7 @@ codeunit 50020 "Vendor Sharing Management"
     [EventSubscriber(ObjectType::Table, Database::Vendor, 'OnAfterInsertEvent', '', true, true)]
     local procedure SetVendorAsSharedOnAfterInsert(var Rec: Record Vendor; RunTrigger: Boolean)
     var
-        ErrorMsg: TextConst ENU = 'You cannot insert Vendors in this company. Subscribe to the vendors that you want to use.',
-                            DAN = 'Du kan ikke indsætte leverandører i det her regnskab. Abonner på de leverandører, som du vil bruge.';
+        ErrorMsg: Label 'You cannot insert Vendors in this company. Subscribe to the vendors that you want to use.', comment = '', Maxlength = 999, locked = true;
     begin
         If not RunTrigger then
             exit;
@@ -308,8 +307,7 @@ codeunit 50020 "Vendor Sharing Management"
     [EventSubscriber(ObjectType::Table, Database::Vendor, 'OnAfterModifyEvent', '', true, true)]
     local procedure ModifySharedVendorOnAfterModify(var Rec: Record Vendor; var xRec: Record Vendor; RunTrigger: Boolean)
     var
-        ErrorMsg: TextConst ENU = 'You cannot modify Vedors in this company. Modify the vendor in the company it is created in.',
-                            DAN = 'Du kan ikke rette i leverandøren i det her regnskab. Ret leverandøren i det selskab den er oprettet i.';
+        ErrorMsg: Label 'You cannot modify Vedors in this company. Modify the vendor in the company it is created in.', comment = '', Maxlength = 999, locked = true;
     begin
         if not RunTrigger then
             exit;
@@ -322,8 +320,7 @@ codeunit 50020 "Vendor Sharing Management"
     [EventSubscriber(ObjectType::Table, Database::Vendor, 'OnAfterDeleteEvent', '', true, true)]
     local procedure DeleteSharedVendorOnAfterDelete(var Rec: Record Vendor; Runtrigger: Boolean)
     var
-        ErrorMsg: TextConst ENU = 'You cannot delete Vendors.',
-                            DAN = 'Du kan ikke slette leverandører.';
+        ErrorMsg: Label 'You cannot delete Vendors.', comment = '', Maxlength = 999, locked = true;
     begin
         if not Runtrigger then
             exit;
@@ -333,8 +330,7 @@ codeunit 50020 "Vendor Sharing Management"
     [EventSubscriber(ObjectType::Table, Database::Vendor, 'OnAfterRenameEvent', '', true, true)]
     local procedure RenameSharedVendorOnAfterRename(var Rec: Record Vendor; var xRec: Record Vendor; RunTrigger: Boolean)
     var
-        ErrorMsg: TextConst ENU = 'You cannot rename Vendors.',
-                            DAN = 'Du kan ikke omdøbe leverandører.';
+        ErrorMsg: Label 'You cannot rename Vendors.', comment = '', Maxlength = 999, locked = true;
     begin
         if not Runtrigger then
             exit;
@@ -344,8 +340,7 @@ codeunit 50020 "Vendor Sharing Management"
     [EventSubscriber(ObjectType::Table, Database::"Vendor Bank Account", 'OnAfterInsertEvent', '', true, true)]
     local procedure InsertSharedVendorBankAccountOnAfterInsert(var Rec: Record "Vendor Bank Account"; RunTrigger: Boolean)
     var
-        ErrorMsg: TextConst ENU = 'You cannot insert Vendor Bank Accounts in this company. Subscribe to the vendors that you want to use.',
-                            DAN = 'Du kan ikke indsætte leverandørbankkonti i det her regnskab. Abonner på de leverandører, som du vil  bruge.';
+        ErrorMsg: Label 'You cannot insert Vendor Bank Accounts in this company. Subscribe to the vendors that you want to use.', comment = '', Maxlength = 999, locked = true;
         Vendor: Record Vendor;
     begin
         if not RunTrigger then
@@ -361,8 +356,7 @@ codeunit 50020 "Vendor Sharing Management"
     [EventSubscriber(ObjectType::Table, Database::"Vendor Bank Account", 'OnAfterModifyEvent', '', true, true)]
     local procedure ModifySharedVendorBankAccountOnAfterModify(var Rec: Record "Vendor Bank Account"; var xRec: Record "Vendor Bank Account"; RunTrigger: Boolean)
     var
-        ErrorMsg: TextConst ENU = 'You cannot modify Vendor Bank Accounts in this company. Subscribe to the vendors that you want to use.',
-                            DAN = 'Du kan ikke ændre leverandørbankkonti i det her regnskab. Abonner på de leverandører, som du vil bruge.';
+        ErrorMsg: Label 'You cannot modify Vendor Bank Accounts in this company. Subscribe to the vendors that you want to use.', comment = '', Maxlength = 999, locked = true;
         Vendor: Record Vendor;
     begin
         if not RunTrigger then
@@ -378,8 +372,7 @@ codeunit 50020 "Vendor Sharing Management"
     [EventSubscriber(ObjectType::Table, Database::"Vendor Bank Account", 'OnAfterDeleteEvent', '', true, true)]
     local procedure DeleteSharedVendorBankAccountOnAfterDelete(var Rec: Record "Vendor Bank Account"; RunTrigger: Boolean)
     var
-        ErrorMsg: TextConst ENU = 'You cannot delete Vendor Bank Accounts.',
-                            DAN = 'Du kan ikke slette leverandøres bankkonti.';
+        ErrorMsg: Label 'You cannot delete Vendor Bank Accounts.', comment = '', Maxlength = 999, locked = true;
     begin
         if not RunTrigger then
             exit;
@@ -389,8 +382,7 @@ codeunit 50020 "Vendor Sharing Management"
     [EventSubscriber(ObjectType::Table, Database::"Vendor Bank Account", 'OnAfterRenameEvent', '', true, true)]
     local procedure RenameSharedVendorBankAccountOnAfterRename(var Rec: Record "Vendor Bank Account"; var xRec: Record "Vendor Bank Account"; RunTrigger: Boolean)
     var
-        ErrorMsg: TextConst ENU = 'You cannot rename Vendor Bank Accounts.',
-                            DAN = 'Du kan ikke omdøbe leverandøres bankkonti.';
+        ErrorMsg: Label 'You cannot rename Vendor Bank Accounts.', comment = '', Maxlength = 999, locked = true;
     begin
         if not RunTrigger then
             exit;
@@ -401,8 +393,7 @@ codeunit 50020 "Vendor Sharing Management"
     local procedure InsertSharedVendorPaymentMethodOnAfterInsert(var Rec: Record "Vendor/Payment Method"; RunTrigger: Boolean)
     var
         Vendor: Record Vendor;
-        ErrorMsg: TextConst ENU = 'You cannot insert Vendor Payment Methods in this company. Subscribe to the vendors that you want to use.',
-                            DAN = 'Du kan ikke indsætte leverandøres betalingsmetoder i det her regnskab. Abonner på de leverandører, som du vil bruge';
+        ErrorMsg: Label 'You cannot insert Vendor Payment Methods in this company. Subscribe to the vendors that you want to use.', comment = '', Maxlength = 999, locked = true;
     begin
         if not RunTrigger then
             exit;
@@ -418,8 +409,7 @@ codeunit 50020 "Vendor Sharing Management"
     local procedure ModifySharedVendorPaymentMethodOnAfterModify(var Rec: Record "Vendor/Payment Method"; var xRec: Record "Vendor/Payment Method"; RunTrigger: Boolean)
     var
         Vendor: Record Vendor;
-        ErrorMsg: TextConst ENU = 'You cannot modify Vendor Payment Methods in this company. Modify it in the company it is created in.',
-                            DAN = 'Du kan ikke rette i leverandøres betalingsmetoder i det her regnskab. Ret leverandøren i det selskab den er oprette i.';
+        ErrorMsg: Label 'You cannot modify Vendor Payment Methods in this company. Modify it in the company it is created in.', comment = '', Maxlength = 999, locked = true;
     begin
         if not RunTrigger then
             exit;
@@ -434,8 +424,7 @@ codeunit 50020 "Vendor Sharing Management"
     [EventSubscriber(ObjectType::Table, Database::"Vendor/Payment Method", 'OnAfterDeleteEvent', '', true, true)]
     local procedure DeleteSharedVendorPaymentMethodOnAfterDelete(var Rec: Record "Vendor/Payment Method"; RunTrigger: Boolean)
     var
-        ErrorMsg: TextConst ENU = '',
-                            DAN = '';
+        ErrorMsg: Label 'You cannot delete Vendor Payment Methods.', comment = '', Maxlength = 999, locked = true;
     begin
         if not RunTrigger then
             exit;
@@ -445,8 +434,7 @@ codeunit 50020 "Vendor Sharing Management"
     [EventSubscriber(ObjectType::Table, Database::"Vendor/Payment Method", 'OnAfterRenameEvent', '', true, true)]
     local procedure RenameSharedVendorPaymentMethodOnAfterRename(var Rec: Record "Vendor/Payment Method"; var xRec: Record "Vendor/Payment Method"; RunTrigger: Boolean)
     var
-        ErrorMsg: TextConst ENU = 'You cannot delete Vendor Payment Methods.',
-                            DAN = 'Du kan ikke slette leverandøres betalingsmetoder.';
+        ErrorMsg: Label 'You cannot delete Vendor Payment Methods.', comment = '', Maxlength = 999, locked = true;
     begin
         if not RunTrigger then
             exit;
@@ -457,8 +445,7 @@ codeunit 50020 "Vendor Sharing Management"
     local procedure InsertSharedVendorPaymentInformationOnAfterInsert(var Rec: Record "Vendor/Payment Information"; RunTrigger: Boolean)
     var
         Vendor: Record Vendor;
-        ErrorMsg: TextConst ENU = 'You cannot rename Vendor Payment Methods.',
-                            DAN = 'Du kan ikke omdøbe leverandøres betalingsmetoder.';
+        ErrorMsg: Label 'You cannot rename Vendor Payment Methods.', comment = '', Maxlength = 999, locked = true;
     begin
         if not RunTrigger then
             exit;
@@ -475,8 +462,7 @@ codeunit 50020 "Vendor Sharing Management"
     local procedure ModifySharedVendorPaymentInformationOnAfterModify(var Rec: Record "Vendor/Payment Information"; var xRec: Record "Vendor/Payment Information"; RunTrigger: Boolean)
     var
         Vendor: Record Vendor;
-        ErrorMsg: TextConst ENU = 'You cannot modify Vendor Payment Information in this company. Modify it in the company it is created in.',
-                            DAN = 'Du kan ikke rette i leverandøres betalingsinformationer i det her regnskab. Ret leverandøren i det selskab den er oprettet i.';
+        ErrorMsg: Label 'You cannot modify Vendor Payment Information in this company. Modify it in the company it is created in.', comment = '', Maxlength = 999, locked = true;
     begin
         if not RunTrigger then
             exit;
@@ -490,8 +476,7 @@ codeunit 50020 "Vendor Sharing Management"
     [EventSubscriber(ObjectType::Table, Database::"Vendor/Payment Information", 'OnAfterDeleteEvent', '', true, true)]
     local procedure DeleteSharedVendorPaymentInformationOnAfterDelete(var Rec: Record "Vendor/Payment Information"; RunTrigger: Boolean)
     var
-        ErrorMsg: TextConst ENU = 'You cannot delete payment information.',
-                            DAN = 'Du kan ikke slette betalingsinformation.';
+        ErrorMsg: Label 'You cannot delete payment information.', comment = '', Maxlength = 999, locked = true;
     begin
         if not RunTrigger then
             exit;
@@ -501,8 +486,7 @@ codeunit 50020 "Vendor Sharing Management"
     [EventSubscriber(ObjectType::Table, Database::"Vendor/Payment Information", 'OnAfterRenameEvent', '', true, true)]
     local procedure RenameSharedVendorPaymentInformationOnAfterRename(var Rec: Record "Vendor/Payment Information"; var xRec: Record "Vendor/Payment Information"; RunTrigger: Boolean)
     var
-        ErrorMsg: TextConst ENU = '',
-                            DAN = '';
+        ErrorMsg: Label 'You cannot rename Payment Information.', comment = '', Maxlength = 999, locked = true;
     begin
         if not RunTrigger then
             exit;

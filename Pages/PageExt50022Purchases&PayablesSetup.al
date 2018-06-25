@@ -6,10 +6,10 @@ pageextension 50022 AddShareVendorGroup extends "Purchases & Payables Setup"
         {
             group(Sharing)
             {
-                Caption = 'Deling';
+                Caption = 'Sharing';
                 field("Share Vendors";"Share Vendors")
                 {
-                    Caption = 'Del leverandører';
+                    Caption = 'Share Vendors';
                 }  
             }
         }

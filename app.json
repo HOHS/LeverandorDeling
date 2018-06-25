@@ -21,5 +21,6 @@
     },
     "features": [
       "TranslationFile"
-    ]
+    ],
+    "showMyCode": true
   }
