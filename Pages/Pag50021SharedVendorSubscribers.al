@@ -2,7 +2,7 @@ page 50021 "Shared Vendor Subscribers"
 {
     Editable = false;
     PageType = List;
-    Caption = 'Delte Leverandører - Abonnenter';
+    Caption = 'Shared Vendor Subscribers';
     SourceTable = "Shared Vendor Subscriber";
     layout
     {
@@ -12,19 +12,19 @@ page 50021 "Shared Vendor Subscribers"
             {
                 field("Shared from Company Name"; "Shared from Company Name")
                 {
-                    Caption = 'Delt fra virksomhedsnavn';
+                    Caption = 'Shared from Company Name';
                 }
                 field("Shared to Company Name";"Shared to Company Name")
                 {
-                    Caption = 'Delt til virksomhedsnavn';
+                    Caption = 'Shared to Company Name';
                 }
                 field("Vendor No.";"Vendor No.")
                 {
-                    Caption = 'Leverandørnr.';
+                    Caption = 'Vendor No.';
                 }
                 field("Vendor Name";"Vendor Name")
                 {
-                    Caption = 'Leverandørnavn';
+                    Caption = 'Vendor Name';
                 }
             }
         }

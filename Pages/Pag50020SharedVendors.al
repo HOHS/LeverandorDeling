@@ -2,7 +2,7 @@ page 50020 "Shared Vendors"
 {
     PageType = List;
     SourceTable = "Shared Vendor";
-    Caption = 'Delte Leverandører';
+    Caption = 'shared Vendors';
     Editable = false;
     layout
     {
@@ -12,15 +12,15 @@ page 50020 "Shared Vendors"
             {
                 field("Shared from Company Name";"Shared from Company Name")
                 {
-                    Caption = 'Delt fra virksomhedsnavn';
+                    Caption = 'Shared from Comapany Name';
                 }
                 field("Vendor No.";"Vendor No.")
                 {
-                    Caption = 'Leverandørnr.';
+                    Caption = 'Vendor no..';
                 }
                 field("Vendor Name";"Vendor Name")
                 {
-                    Caption = 'Leverandørnavn';
+                    Caption = 'Vendor Name';
                 }
             }
         }
