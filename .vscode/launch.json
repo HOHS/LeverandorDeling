@@ -4,12 +4,12 @@
         {
             "type": "al",
             "request": "launch",
-            "name": "HOHS",
-            "server": "http://PC0D4MBU",
+            "name": "Vendor Sharing",
+            "server": "http://localhost",
             "serverInstance": "DynamicsNAV110",
             "authentication": "Windows",
             "port": 7049,
-           // "schemaUpdateMode": "Recreate"
+            "schemaUpdateMode": "Recreate"
         }
     ]
 }

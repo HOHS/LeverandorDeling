@@ -281,7 +281,7 @@ codeunit 50020 "Vendor Sharing Management"
         PurchasesPayablesSetup: Record "Purchases & Payables Setup";
     begin
         PurchasesPayablesSetup.Get();
-        exit(PurchasesPayablesSetup."Share Vendors"); //share vendor kan de ikke finde da det er en table extension.
+        exit(PurchasesPayablesSetup."Share Vendors");
     end;
     //</functions>
 
@@ -424,7 +424,7 @@ codeunit 50020 "Vendor Sharing Management"
     [EventSubscriber(ObjectType::Table, Database::"Vendor/Payment Method", 'OnAfterDeleteEvent', '', true, true)]
     local procedure DeleteSharedVendorPaymentMethodOnAfterDelete(var Rec: Record "Vendor/Payment Method"; RunTrigger: Boolean)
     var
-        ErrorMsg: Label  ''; //HOHS
+        ErrorMsg: Label  'You cannot delete Vendor Payment Methods.';
     begin
         if not RunTrigger then
             exit;
@@ -486,7 +486,7 @@ codeunit 50020 "Vendor Sharing Management"
     [EventSubscriber(ObjectType::Table, Database::"Vendor/Payment Information", 'OnAfterRenameEvent', '', true, true)]
     local procedure RenameSharedVendorPaymentInformationOnAfterRename(var Rec: Record "Vendor/Payment Information"; var xRec: Record "Vendor/Payment Information"; RunTrigger: Boolean)
     var
-        ErrorMsg: Label  ''; //HOHS
+        ErrorMsg: Label  'You cannot rename Payment Information.';
     begin
         if not RunTrigger then
             exit;
