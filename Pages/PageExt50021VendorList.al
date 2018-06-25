@@ -1,5 +1,5 @@
 // DONE
-pageextension 50021 MyExtension extends "Vendor List"
+pageextension 50021 AddActionShowVendorsubscribe extends "Vendor List"
 {
     actions
     {
