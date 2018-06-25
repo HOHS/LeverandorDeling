@@ -24,7 +24,11 @@
           <note from="Xliff Generator" annotates="general" priority="3">Table Shared Vendor - Field Vendor Name - Property caption</note>
         </trans-unit>
         <trans-unit id="Table 3180913289 - Field 2390212985 - Property 3830149458" size-unit="char" translate="yes" xml:space="preserve">
+<<<<<<< HEAD
           <source>Shared from Company Name</source>
+=======
+          <source>shared from Company Name</source>
+>>>>>>> 9bb7e7c1f20d877e5d1997c2be1d89058eb2f0aa
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Table Shared Vendor Subscriber - Field Shared from Company Name - Property caption</note>
         </trans-unit>
@@ -93,7 +97,11 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit Vendor Sharing Management - Procedure ModifySharedVendorPaymentMethodOnAfterModify - NamedType ErrorMsg</note>
         </trans-unit>
+<<<<<<< HEAD
         <trans-unit id="Codeunit 3886690921 - Method 2806556511 - NamedType 331638123" maxwidth="999" size-unit="char" translate="no" xml:space="preserve">
+=======
+        <trans-unit id="Codeunit 3886690921 - Method 2806556511 - NamedType 331638123" size-unit="char" translate="yes" xml:space="preserve">
+>>>>>>> 9bb7e7c1f20d877e5d1997c2be1d89058eb2f0aa
           <source>You cannot delete Vendor Payment Methods.</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit Vendor Sharing Management - Procedure DeleteSharedVendorPaymentMethodOnAfterDelete - NamedType ErrorMsg</note>
@@ -118,23 +126,39 @@
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit Vendor Sharing Management - Procedure DeleteSharedVendorPaymentInformationOnAfterDelete - NamedType ErrorMsg</note>
         </trans-unit>
+<<<<<<< HEAD
         <trans-unit id="Codeunit 3886690921 - Method 2564572490 - NamedType 331638123" maxwidth="999" size-unit="char" translate="no" xml:space="preserve">
+=======
+        <trans-unit id="Codeunit 3886690921 - Method 2564572490 - NamedType 331638123" size-unit="char" translate="yes" xml:space="preserve">
+>>>>>>> 9bb7e7c1f20d877e5d1997c2be1d89058eb2f0aa
           <source>You cannot rename Payment Information.</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit Vendor Sharing Management - Procedure RenameSharedVendorPaymentInformationOnAfterRename - NamedType ErrorMsg</note>
         </trans-unit>
         <trans-unit id="Page 1195257210 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+<<<<<<< HEAD
           <source>shared Vendor</source>
+=======
+          <source>shared Vendors</source>
+>>>>>>> 9bb7e7c1f20d877e5d1997c2be1d89058eb2f0aa
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page Shared Vendors - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 1195257210 - Control 2390212985 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+<<<<<<< HEAD
           <source>Shared from Company Name</source>
+=======
+          <source>Shared from Comapany Name</source>
+>>>>>>> 9bb7e7c1f20d877e5d1997c2be1d89058eb2f0aa
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page Shared Vendors - Control Shared from Company Name - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 1195257210 - Control 1527594213 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+<<<<<<< HEAD
           <source>Vendor No.</source>
+=======
+          <source>Vendor no..</source>
+>>>>>>> 9bb7e7c1f20d877e5d1997c2be1d89058eb2f0aa
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page Shared Vendors - Control Vendor No. - Property Caption</note>
         </trans-unit>
@@ -149,7 +173,11 @@
           <note from="Xliff Generator" annotates="general" priority="3">Page Shared Vendor Subscribers - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 1540473376 - Control 2390212985 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+<<<<<<< HEAD
           <source>shared from Company Name</source>
+=======
+          <source>Shared from Company Name</source>
+>>>>>>> 9bb7e7c1f20d877e5d1997c2be1d89058eb2f0aa
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page Shared Vendor Subscribers - Control Shared from Company Name - Property Caption</note>
         </trans-unit>
@@ -169,17 +197,29 @@
           <note from="Xliff Generator" annotates="general" priority="3">Page Shared Vendor Subscribers - Control Vendor Name - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 1068027345 - Action 1831211822 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+<<<<<<< HEAD
           <source>Shared in Companies</source>
+=======
+          <source>Shared in companies</source>
+>>>>>>> 9bb7e7c1f20d877e5d1997c2be1d89058eb2f0aa
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension AddActionsToVendorCard - Action SharedWithCompanies - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 1068027345 - Action 225487236 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+<<<<<<< HEAD
           <source>Shared from Company</source>
+=======
+          <source>Shared from company</source>
+>>>>>>> 9bb7e7c1f20d877e5d1997c2be1d89058eb2f0aa
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension AddActionsToVendorCard - Action SharedFromCompany - Property Caption</note>
         </trans-unit>
         <trans-unit id="PageExtension 1068027345 - Action 1175275504 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
+<<<<<<< HEAD
           <source>Unsubscribe to Vendor</source>
+=======
+          <source>Stop subscribing to Vendor</source>
+>>>>>>> 9bb7e7c1f20d877e5d1997c2be1d89058eb2f0aa
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">PageExtension AddActionsToVendorCard - Action Unsubscribe to Vendor - Property Caption</note>
         </trans-unit>
