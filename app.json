@@ -1,0 +1,22 @@
+{
+  "id": "fec7570b-b883-4843-a6ca-573a76fee10a",
+    "name": "LeverandørDeling",
+    "publisher": "Netcompany",
+    "brief": "",
+    "description": "",
+    "version": "1.0.0.0",
+    "privacyStatement": "",
+    "EULA": "",
+    "help": "",
+    "url": "",
+    "logo": "",
+    "capabilities": [],
+    "dependencies": [],
+    "screenshots": [],
+    "platform": "11.0.0.0",
+    "application": "11.0.0.0",
+    "idRange": {
+      "from": 50000,
+      "to": 50099
+    }
+  }
