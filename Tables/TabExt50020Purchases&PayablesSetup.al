@@ -4,7 +4,7 @@ tableextension 50020 "AddShareVendorsField" extends "Purchases & Payables Setup"
     {
         field(50020; "Share Vendors"; Boolean)
         {
-            caption = 'Del leverandører';
+            caption = 'Share Vendors';
             DataClassification = CustomerContent;
             
             trigger OnValidate()

@@ -7,7 +7,7 @@ pageextension 50021 AddActionShowVendorsubscribe extends "Vendor List"
             action(SubscribeToVendor)
             {
                 Visible = ShowVendorSubscribe;
-                Caption = 'Abonner på leverandør';
+                Caption = 'Subscribe to Vendor';
                 Image = SuggestTables;
                 
                 trigger OnAction()
