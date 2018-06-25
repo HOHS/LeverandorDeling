@@ -1,4 +1,3 @@
-//DONE
 pageextension 50020 AddActionsToVendorCard extends "Vendor Card"
 {
     actions

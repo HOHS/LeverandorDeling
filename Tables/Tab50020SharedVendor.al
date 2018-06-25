@@ -1,4 +1,3 @@
-//DONE
 table 50020 "Shared Vendor"
 {
     DataClassification = CustomerContent;

@@ -8,7 +8,8 @@
             "server": "http://PC0D4MBU",
             "serverInstance": "DynamicsNAV110",
             "authentication": "Windows",
-            "port": 7049
+            "port": 7049,
+           // "schemaUpdateMode": "Recreate"
         }
     ]
 }

@@ -1,4 +1,3 @@
-//DONE
 table 50021 "Shared Vendor Subscriber"
 {
     DataPerCompany = false;

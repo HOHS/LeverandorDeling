@@ -18,5 +18,8 @@
     "idRange": {
       "from": 50000,
       "to": 50099
-    }
+    },
+    "features": [
+      "TranslationFile"
+    ]
   }

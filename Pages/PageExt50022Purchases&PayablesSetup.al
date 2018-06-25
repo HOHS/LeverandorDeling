@@ -1,5 +1,4 @@
-// added group sharing  - added field share vendors to new group.
-pageextension 50022 AddShareVendorGroup extends 460
+pageextension 50022 AddShareVendorGroup extends "Purchases & Payables Setup"
 {
     layout
     {
@@ -8,12 +7,11 @@ pageextension 50022 AddShareVendorGroup extends 460
             group(Sharing)
             {
                 Caption = 'Deling';
-
-                
+                field("Share Vendors";"Share Vendors")
+                {
+                    Caption = 'Del leverandører';
+                }  
             }
-            
         }
-        
     }
-
 }

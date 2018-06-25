@@ -1,4 +1,3 @@
-//DONE
 page 50021 "Shared Vendor Subscribers"
 {
     Editable = false;

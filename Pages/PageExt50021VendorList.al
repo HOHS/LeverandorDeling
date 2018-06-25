@@ -1,4 +1,3 @@
-// DONE
 pageextension 50021 AddActionShowVendorsubscribe extends "Vendor List"
 {
     actions

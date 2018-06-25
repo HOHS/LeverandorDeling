@@ -1,9 +1,7 @@
-//DONE
-tableextension 50020 "Purch and Payables setup ext." extends 318
+tableextension 50020 "AddShareVendorsField" extends "Purchases & Payables Setup"
 {
     fields
     {
-        // Add changes to table fields here
         field(50020; "Share Vendors"; Boolean)
         {
             caption = 'Del leverandører';

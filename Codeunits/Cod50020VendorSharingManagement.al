@@ -1,4 +1,3 @@
-//DONE
 codeunit 50020 "Vendor Sharing Management"
 {
     trigger OnRun()
@@ -282,7 +281,7 @@ codeunit 50020 "Vendor Sharing Management"
         PurchasesPayablesSetup: Record "Purchases & Payables Setup";
     begin
         PurchasesPayablesSetup.Get();
-        //exit(PurchasesPayablesSetup."Share Vendor"); //share vendor kan de ikke finde da det er en table extension.
+        exit(PurchasesPayablesSetup."Share Vendors"); //share vendor kan de ikke finde da det er en table extension.
     end;
     //</functions>
 
