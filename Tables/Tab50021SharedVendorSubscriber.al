@@ -9,11 +9,7 @@ table 50021 "Shared Vendor Subscriber"
     {
         field(1;"Shared from Company Name"; Text[30])
         {
-<<<<<<< HEAD
             caption = 'Shared from Company Name';
-=======
-            caption = 'shared from Company Name';
->>>>>>> 9bb7e7c1f20d877e5d1997c2be1d89058eb2f0aa
             TableRelation = company.Name;
             DataClassification = CustomerContent;
         }
