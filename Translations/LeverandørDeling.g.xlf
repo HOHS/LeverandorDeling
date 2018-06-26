@@ -99,12 +99,12 @@
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit Vendor Sharing Management - Procedure DeleteSharedVendorPaymentMethodOnAfterDelete - NamedType ErrorMsg</note>
         </trans-unit>
         <trans-unit id="Codeunit 3886690921 - Method 4229745071 - NamedType 331638123" maxwidth="999" size-unit="char" translate="no" xml:space="preserve">
-          <source>You cannot delete Vendor Payment Methods.</source>
+          <source>You cannot rename Vendor Payment Methods.</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit Vendor Sharing Management - Procedure RenameSharedVendorPaymentMethodOnAfterRename - NamedType ErrorMsg</note>
         </trans-unit>
         <trans-unit id="Codeunit 3886690921 - Method 4289993762 - NamedType 331638123" maxwidth="999" size-unit="char" translate="no" xml:space="preserve">
-          <source>You cannot rename Vendor Payment Methods.</source>
+          <source>You cannot insert Vendor Payment Information in this company. Subscribe to the vendors that you want to use.</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit Vendor Sharing Management - Procedure InsertSharedVendorPaymentInformationOnAfterInsert - NamedType ErrorMsg</note>
         </trans-unit>
@@ -124,7 +124,7 @@
           <note from="Xliff Generator" annotates="general" priority="3">Codeunit Vendor Sharing Management - Procedure RenameSharedVendorPaymentInformationOnAfterRename - NamedType ErrorMsg</note>
         </trans-unit>
         <trans-unit id="Page 1195257210 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>shared Vendor</source>
+          <source>Shared Vendor</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page Shared Vendors - Property Caption</note>
         </trans-unit>
@@ -149,7 +149,7 @@
           <note from="Xliff Generator" annotates="general" priority="3">Page Shared Vendor Subscribers - Property Caption</note>
         </trans-unit>
         <trans-unit id="Page 1540473376 - Control 2390212985 - Property 2879900210" size-unit="char" translate="yes" xml:space="preserve">
-          <source>shared from Company Name</source>
+          <source>Shared from Company Name</source>
           <note from="Developer" annotates="general" priority="2"></note>
           <note from="Xliff Generator" annotates="general" priority="3">Page Shared Vendor Subscribers - Control Shared from Company Name - Property Caption</note>
         </trans-unit>
