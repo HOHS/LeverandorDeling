@@ -12,7 +12,7 @@ page 50021 "Shared Vendor Subscribers"
             {
                 field("Shared from Company Name"; "Shared from Company Name")
                 {
-                    Caption = 'shared from Company Name';
+                    Caption = 'Shared from Company Name';
                 }
                 field("Shared to Company Name";"Shared to Company Name")
                 {

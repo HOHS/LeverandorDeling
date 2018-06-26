@@ -434,7 +434,7 @@ codeunit 50020 "Vendor Sharing Management"
     [EventSubscriber(ObjectType::Table, Database::"Vendor/Payment Method", 'OnAfterRenameEvent', '', true, true)]
     local procedure RenameSharedVendorPaymentMethodOnAfterRename(var Rec: Record "Vendor/Payment Method"; var xRec: Record "Vendor/Payment Method"; RunTrigger: Boolean)
     var
-        ErrorMsg: Label 'You cannot delete Vendor Payment Methods.', comment = '', Maxlength = 999, locked = true;
+        ErrorMsg: Label 'You cannot rename Vendor Payment Methods.', comment = '', Maxlength = 999, locked = true;
     begin
         if not RunTrigger then
             exit;
@@ -445,7 +445,7 @@ codeunit 50020 "Vendor Sharing Management"
     local procedure InsertSharedVendorPaymentInformationOnAfterInsert(var Rec: Record "Vendor/Payment Information"; RunTrigger: Boolean)
     var
         Vendor: Record Vendor;
-        ErrorMsg: Label 'You cannot rename Vendor Payment Methods.', comment = '', Maxlength = 999, locked = true;
+        ErrorMsg: Label 'You cannot insert Vendor Payment Information in this company. Subscribe to the vendors that you want to use.', comment = '', Maxlength = 999, locked = true;
     begin
         if not RunTrigger then
             exit;

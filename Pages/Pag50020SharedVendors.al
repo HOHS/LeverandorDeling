@@ -2,7 +2,7 @@ page 50020 "Shared Vendors"
 {
     PageType = List;
     SourceTable = "Shared Vendor";
-    Caption = 'shared Vendor';
+    Caption = 'Shared Vendor';
     Editable = false;
     layout
     {

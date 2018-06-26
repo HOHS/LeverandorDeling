@@ -28,8 +28,7 @@ table 50021 "Shared Vendor Subscriber"
             caption = 'Vendor Name';
             DataClassification = ToBeClassified;
         }
-    }
-    
+    }  
     keys
     {
         key(PK; "Shared from Company Name","Shared to Company Name","Vendor No.")
