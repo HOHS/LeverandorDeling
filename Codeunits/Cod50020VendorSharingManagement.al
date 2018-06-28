@@ -276,7 +276,7 @@ codeunit 50020 "Vendor Sharing Management"
         until SharedVendorSubscriber.Next() = 0;
     end;
 
-    local procedure ThisCompanySharesItsVendors(): Boolean
+    procedure ThisCompanySharesItsVendors(): Boolean
     var
         PurchasesPayablesSetup: Record "Purchases & Payables Setup";
     begin

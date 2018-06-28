@@ -21,6 +21,13 @@ pageextension 50021 AddActionShowVendorsubscribe extends "Vendor List"
         }
         
     }
-    var
-        ShowVendorSubscribe: Boolean;
+var
+    ShowVendorSubscribe: Boolean;
+
+trigger OnOpenPage()
+var
+    VendorSharingManagement: Codeunit "Vendor Sharing Management";
+begin
+    ShowVendorSubscribe := not VendorSharingManagement.ThisCompanySharesItsVendors();
+end;
 }

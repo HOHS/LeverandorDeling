@@ -1,3 +1,6 @@
+//MANGLER AT KALDE ON OPEN PAGE OBJEKTERNE
+
+
 pageextension 50020 AddActionsToVendorCard extends "Vendor Card"
 {
     actions
@@ -53,7 +56,14 @@ pageextension 50020 AddActionsToVendorCard extends "Vendor Card"
             }
         }
     }
-        var
-            ShowSharedVendorList: Boolean;
-            ShowVendorUnsubscribe: Boolean; 
+var
+    ShowSharedVendorList: Boolean;
+    ShowVendorUnsubscribe: Boolean;
+trigger OnOpenPage()
+    var
+        VendorSharingManagement: Codeunit "Vendor Sharing Management";
+    begin
+        ShowSharedVendorList := VendorSharingManagement.ThisCompanySharesItsVendors();
+        ShowVendorUnsubscribe := Not ShowSharedVendorList;
+    end;
 }
