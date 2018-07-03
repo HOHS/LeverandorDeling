@@ -1,6 +1,3 @@
-//MANGLER AT KALDE ON OPEN PAGE OBJEKTERNE
-
-
 pageextension 50020 AddActionsToVendorCard extends "Vendor Card"
 {
     actions
