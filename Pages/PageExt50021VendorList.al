@@ -28,6 +28,6 @@ trigger OnOpenPage()
 var
     VendorSharingManagement: Codeunit "Vendor Sharing Management";
 begin
-    ShowVendorSubscribe := not VendorSharingManagement.ThisCompanySharesItsVendors();
+    ShowVendorSubscribe := not VendorSharingManagement.VendorsCanBeEdited();
 end;
 }

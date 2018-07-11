@@ -61,6 +61,6 @@ trigger OnOpenPage()
         VendorSharingManagement: Codeunit "Vendor Sharing Management";
     begin
         ShowSharedVendorList := VendorSharingManagement.ThisCompanySharesItsVendors();
-        ShowVendorUnsubscribe := Not ShowSharedVendorList;
+        ShowVendorUnsubscribe := Not VendorSharingManagement.VendorsCanBeEdited();
     end;
 }
