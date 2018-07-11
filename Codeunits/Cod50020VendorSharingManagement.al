@@ -1,10 +1,5 @@
 codeunit 50020 "Vendor Sharing Management"
 {
-    trigger OnRun()
-    begin
-
-    end;
-
     //<functions>
     procedure SetVendorAsShared(Vendor: Record Vendor; FromCompany: Text[35])
     var
@@ -115,7 +110,7 @@ codeunit 50020 "Vendor Sharing Management"
                 NewVendor.insert(false);
             end else begin
                 NewVendor.TransferFields(VendorToBeShared, false);
-                newvendor.Modify(false);
+                newVendor.Modify(false);
             end;
         end;
     end;
@@ -126,10 +121,7 @@ codeunit 50020 "Vendor Sharing Management"
     begin
         CopyVendorBankAccount(SharedVendor, ShareWithCompanyName);
         PaymentManagementSetup.ChangeCompany(ShareWithCompanyName);
-        if PaymentManagementSetup.Get() then begin
-            CopyVendorPaymentMethod(SharedVendor, ShareWithCompanyName);
-            CopyVendorPaymentInformation(SharedVendor, ShareWithCompanyName);
-        end;
+        CopyVendorPaymentInformation(SharedVendor,ShareWithCompanyName);
     end;
 
     local procedure CopyVendorBankAccount(SharedVendor: Record "Shared Vendor"; ShareWithCompanyName: text[35])
@@ -281,7 +273,15 @@ codeunit 50020 "Vendor Sharing Management"
         PurchasesPayablesSetup: Record "Purchases & Payables Setup";
     begin
         PurchasesPayablesSetup.Get();
-        exit(PurchasesPayablesSetup."Share Vendors"); 
+        exit(PurchasesPayablesSetup."Share Vendors" = PurchasesPayablesSetup."Share Vendors"::"Share Vendors"); 
+    end;
+
+    procedure VendorsCanBeEdited(): Boolean
+    var
+        PurchasesPayableSetup: Record "Purchases & Payables Setup";
+    begin
+        PurchasesPayableSetup.Get();
+        exit(PurchasesPayableSetup."Share Vendors" in [PurchasesPayableSetup."Share Vendors"::" ", PurchasesPayableSetup."Share Vendors"::"Share Vendors"]);
     end;
     //</functions>
 
