@@ -4,6 +4,7 @@ codeunit 50020 "Vendor Sharing Management"
     procedure SetVendorAsShared(Vendor: Record Vendor; FromCompany: Text[35])
     var
         SharedVendor: Record "Shared Vendor";
+        debitor: Record Customer;
     begin
         SharedVendor."Shared from Company Name" := FromCompany;
         SharedVendor."Vendor No." := Vendor."No.";
